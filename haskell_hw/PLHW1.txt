@@ -1,0 +1,66 @@
+    HW Problem 1
+eval c str = length [x|x <- str, (c == x)]
+
+    HW Problem 2
+rev :: [a] -> [a]  
+rev [] = []  
+rev (x:xs) = rev xs ++ [x]
+
+
+    HW Problem 3
+quicksort :: (Ord a) => [a] -> [a]
+quicksort [] = []
+quicksort (x:xs) = quicksort [y | y <- xs, y <= x] ++ [x] ++ quicksort [y | y <- xs, y > x]
+
+    HW Problem 4
+import Data.List
+-- show This gets rid of all the zeroes at the end of the representation.
+toProper [] = []
+toProper p = if (last p /= 0) -- this means there is nothing to do.
+             then p 
+             else toProper $ init p -- this means the last zero can be discarded.
+
+Write a function ev :: Polynomial -> Double -> Double that evaluates the corresponding polynomial at a given point. For example, ev [1,2,4] 3 should evaluate to 4⋅32+2⋅3+14⋅32+2⋅3+1.
+
+ev [] m = 0
+ev (x:xs) m = sum (map (* (m^length(x:xs) -1)) (x:xs))
+
+Write a function addP :: Polynomial->Polynomial->Polynomial that adds two polynomials.
+
+addP [] ys = ys
+
+Write a function scale :: Double -> Polynomial -> Polynomial that scaled a polynomial by a constant. For example scale .5 [1,2,3] should yield [0.5,1.0,1.5].
+
+
+Write a function multP :: Polynomial -> Polynomial -> Polynomial that multiplies two polynomials. You will want to use addP and scale to define this.
+
+
+Write a function der :: Polynomial->Polynomial that calculates the derivative of a polynomial. For example, der [5,3,2] should produce the derivative of the polynomial 2x2+3x+52x2+3x+5, or 4x+34x+3. So the result should be [3,4].
+
+main = do print $ toProper []
+          print $ toProper [0,0,0]
+          print $ toProper [0,1]
+          print $ toProper [0,1,0]
+-- /show
+
+
+
+
+    HW Problem 5    //Eval by hand
+factRec :: (Integer -> Integer) -> (Integer -> Integer)
+factRec f 0 = 1
+factRec f m = m * f (m-1)
+
+factFP = factRec factFP
+
+EVAL:
+
+factFP 4 =
+FactRec f 4 = 4 *f(3)
+FactRec f 3 = 3 *f(2)
+FactRec f 2 = 2 *f(1)
+FactRec f 1 = 1 *f(0)
+
+Then recusivly returns : 4 * 3 * 2 * 1 which equals 24
+
+The function factRec adds a recursive element 
